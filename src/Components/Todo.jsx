@@ -1,18 +1,30 @@
-const Todo = ({todo}) => {
-    const style = {
-      bg: `h-screen w-screen p-4 bg-gradient-to-r from-[#CB54C1] to-[#DDA5D8]`
-    };
+import { FaRegTrashAlt } from "react-icons/fa";
 
+const style = {
+  li: `flex justify-between bg-slate-200 p-4 my-2 capitalize`,
+  liComplete: `flex justify-between line-through p-4 my-2 capitalize`,
+  row: `flex`,
+  text: `ml-2 cursor-pointer`,
+  textComplete: `ml-2 cursor-pointer line-through`,
+  button: `cursor-pointer flex items-center`,
+};
 
-    return (
-        <li className={style.li}>
-            <div className={style.row}>
-                <input type='checkbox'/>
-                <p className={style.text}>{todo}</p>
-            </div>
-        </li>
-    )
-}
+const Todo = ({ todo }) => {
+  return (
+    <li className={style.li}>
+      <div className={style.row}>
+        <input
+            type="checkbox"
+        />
+        <p
+          className={style.text}
+        >
+          {todo}
+        </p>
+      </div>
+      <button><FaRegTrashAlt /></button>
+    </li>
+  );
+};
 
-export default Todo
-
+export default Todo;
