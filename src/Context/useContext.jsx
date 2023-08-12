@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect} from "react";
 
 export const AppContext = createContext();
 
@@ -9,7 +9,6 @@ export const useAuth = () => {
 
 export const AppProvider = ({ children }) => {
   let [todosDone, setTodoDone] = useState([]);
-
 
   return (
     <AppContext.Provider

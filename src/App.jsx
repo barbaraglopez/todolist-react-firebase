@@ -14,20 +14,19 @@ import { useEffect, useState } from "react";
 import { FilterTodos } from "./Components/Filter/Filter";
 
 const style = {
-  bg: `h-screen w-screen p-4 bg-gradient-to-r from-[#2F80ED] to-[#1CB5E0]`,
-  container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
+  bg: `h-screen w-screen p-4 bg-[#CF11D9]`,
+  container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4 max-sm:flex max-sm:flex-col`,
   heading: `text-3xl font-bold text-center text-gray-800 p-2`,
-  form: `flex justify-between`,
+  form: `flex justify-between max-sm:w-sm`,
   input: `border p-2 w-full text-xl`,
-  button: `border p-4 ml-2 bg-purple-500 text-slate-100`,
-  count: `text-center p-2`,
+  button: `border p-3 ml-2 bg-black text-slate-100 hover:bg-slate-500 rounded-xl`,
 };
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
 
-  // Create todo
+
   const createTodo = async (e) => {
     e.preventDefault(e);
     if (input === "") {
@@ -41,7 +40,7 @@ function App() {
     setInput("");
   };
 
-  // Read todo from firebase
+
   useEffect(() => {
     const q = query(collection(db, "todos"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -54,21 +53,22 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  // Update todo in firebase
+
+
   const toggleComplete = async (todo) => {
     await updateDoc(doc(db, "todos", todo.id), {
       completed: !todo.completed,
     });
   };
 
-  // Delete todo
+
   const deleteTodo = async (id) => {
     await deleteDoc(doc(db, "todos", id));
   };
 
   return (
     <div className={style.bg}>
-      <div className={style.container}>
+      <div className={`${style.container}`}>
         <h3 className={style.heading}>Todo App</h3>
         <form onSubmit={createTodo} className={style.form}>
           <input
@@ -92,9 +92,6 @@ function App() {
             />
           ))}
         </ul>
-        {todos.length < 1 ? null : (
-          <p className={style.count}>{`You have ${todos.length} todos`}</p>
-        )}
         <FilterTodos />
       </div>
     </div>
